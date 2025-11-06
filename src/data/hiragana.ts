@@ -70,7 +70,50 @@ export const hiraganaData: HiraganaCharacter[] = [
   { character: 'ん', romanization: 'n' },
 ];
 
-export const getRandomHiragana = (): HiraganaCharacter => {
-  const randomIndex = Math.floor(Math.random() * hiraganaData.length);
-  return hiraganaData[randomIndex];
+// Dakuten characters (voiced sounds)
+export const dakutenData: HiraganaCharacter[] = [
+  // G sounds (ga, gi, gu, ge, go)
+  { character: 'が', romanization: 'ga' },
+  { character: 'ぎ', romanization: 'gi' },
+  { character: 'ぐ', romanization: 'gu' },
+  { character: 'げ', romanization: 'ge' },
+  { character: 'ご', romanization: 'go' },
+  
+  // Z sounds (za, ji, zu, ze, zo)
+  { character: 'ざ', romanization: 'za' },
+  { character: 'じ', romanization: 'ji' },
+  { character: 'ず', romanization: 'zu' },
+  { character: 'ぜ', romanization: 'ze' },
+  { character: 'ぞ', romanization: 'zo' },
+  
+  // D sounds (da, chi, tsu, de, do)
+  { character: 'だ', romanization: 'da' },
+  { character: 'ぢ', romanization: 'di' },
+  { character: 'づ', romanization: 'du' },
+  { character: 'で', romanization: 'de' },
+  { character: 'ど', romanization: 'do' },
+  
+  // B sounds (ba, bi, bu, be, bo)
+  { character: 'ば', romanization: 'ba' },
+  { character: 'び', romanization: 'bi' },
+  { character: 'ぶ', romanization: 'bu' },
+  { character: 'べ', romanization: 'be' },
+  { character: 'ぼ', romanization: 'bo' },
+  
+  // P sounds (pa, pi, pu, pe, po)
+  { character: 'ぱ', romanization: 'pa' },
+  { character: 'ぴ', romanization: 'pi' },
+  { character: 'ぷ', romanization: 'pu' },
+  { character: 'ぺ', romanization: 'pe' },
+  { character: 'ぽ', romanization: 'po' },
+];
+
+export const getRandomHiragana = (includeDakuten: boolean = false): HiraganaCharacter => {
+  const availableChars = includeDakuten ? [...hiraganaData, ...dakutenData] : hiraganaData;
+  const randomIndex = Math.floor(Math.random() * availableChars.length);
+  return availableChars[randomIndex];
+};
+
+export const getAllHiragana = (includeDakuten: boolean = false): HiraganaCharacter[] => {
+  return includeDakuten ? [...hiraganaData, ...dakutenData] : hiraganaData;
 };

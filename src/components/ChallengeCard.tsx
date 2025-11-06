@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect, KeyboardEvent, useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { HiraganaCharacter } from '@/types';
-import { hiraganaData } from '@/data/hiragana';
+import { getAllHiragana } from '@/data/hiragana';
 import './ChallengeCard.scss';
 
 interface ChallengeItem extends HiraganaCharacter {
@@ -11,6 +12,9 @@ interface ChallengeItem extends HiraganaCharacter {
 }
 
 export default function ChallengeCard() {
+  const searchParams = useSearchParams();
+  const includeDakuten = searchParams.get('dakuten') === 'true';
+  
   const [challengeList, setChallengeList] = useState<ChallengeItem[]>([]);
   const [currentInput, setCurrentInput] = useState<string>('');
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
@@ -19,11 +23,12 @@ export default function ChallengeCard() {
 
   useEffect(() => {
     generateChallenge();
-  }, []);
+  }, [includeDakuten]);
 
   const generateChallenge = () => {
     // Get 20 random unique characters
-    const shuffled = [...hiraganaData].sort(() => 0.5 - Math.random());
+    const allChars = getAllHiragana(includeDakuten);
+    const shuffled = [...allChars].sort(() => 0.5 - Math.random());
     const selected = shuffled.slice(0, 20);
     
     const challengeItems: ChallengeItem[] = selected.map(char => ({

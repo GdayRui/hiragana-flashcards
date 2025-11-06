@@ -1,11 +1,15 @@
 'use client';
 
 import { useState, useEffect, KeyboardEvent, useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { HiraganaCharacter, FlashCardResult } from '@/types';
 import { getRandomHiragana } from '@/data/hiragana';
 import './FlashCard.scss';
 
 export default function FlashCard() {
+  const searchParams = useSearchParams();
+  const includeDakuten = searchParams.get('dakuten') === 'true';
+  
   const [currentCharacter, setCurrentCharacter] = useState<HiraganaCharacter | null>(null);
   const [userInput, setUserInput] = useState<string>('');
   const [result, setResult] = useState<FlashCardResult | null>(null);
@@ -15,10 +19,10 @@ export default function FlashCard() {
 
   useEffect(() => {
     generateNewCharacter();
-  }, []);
+  }, [includeDakuten]);
 
   const generateNewCharacter = () => {
-    setCurrentCharacter(getRandomHiragana());
+    setCurrentCharacter(getRandomHiragana(includeDakuten));
     setUserInput('');
     setResult(null);
     setShowResult(false);
