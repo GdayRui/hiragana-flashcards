@@ -1,0 +1,245 @@
+.flash-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  padding: 3rem;
+  transition: all 0.3s ease;
+  min-height: 400px;
+
+  &.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    font-size: 1.2rem;
+    color: #666;
+  }
+
+  .main-content {
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
+    min-height: 300px;
+  }
+
+  .left-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .right-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+  }
+
+  .character-display {
+    margin-bottom: 3rem;
+    text-align: center;
+
+    .hiragana-character {
+      font-size: 8rem;
+      font-weight: 300;
+      color: #4a5568;
+      margin: 0;
+      line-height: 1;
+      font-family: 'Hiragino Kaku Gothic Pro', 'Meiryo', sans-serif;
+    }
+  }
+
+  .input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+
+    .romanization-input {
+      width: 100%;
+      max-width: 300px;
+      padding: 1rem 1.5rem;
+      font-size: 1.2rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      outline: none;
+      transition: all 0.3s ease;
+      text-align: center;
+
+      &:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      &:disabled {
+        background-color: #f7fafc;
+        color: #a0aec0;
+        cursor: not-allowed;
+      }
+    }
+
+    .check-button,
+    .next-button {
+      padding: 0.8rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 160px;
+      outline: none;
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+        transform: translateY(-1px);
+      }
+    }
+
+    .check-button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+
+    .next-button {
+      background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+      color: white;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(72, 187, 120, 0.3);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+
+  .result {
+    width: 100%;
+    padding: 2rem;
+    border-radius: 12px;
+    animation: slideInFromRight 0.3s ease-out;
+    text-align: center;
+
+    &.correct {
+      background: linear-gradient(135deg, #c6f6d5 0%, #9ae6b4 100%);
+      border: 2px solid #48bb78;
+
+      .success h2 {
+        color: #22543d;
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .success p {
+        color: #2f855a;
+        font-size: 1.1rem;
+      }
+    }
+
+    &.incorrect {
+      background: linear-gradient(135deg, #fed7d7 0%, #fc8181 100%);
+      border: 2px solid #e53e3e;
+
+      .error h2 {
+        color: #742a2a;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .error p {
+        color: #822727;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+
+        .user-answer {
+          font-weight: 600;
+          color: #c53030;
+        }
+
+        .correct-answer {
+          font-weight: 600;
+          color: #2f855a;
+        }
+      }
+    }
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .flash-card {
+    padding: 2rem 1.5rem;
+    min-height: auto;
+
+    .main-content {
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .left-section {
+      width: 100%;
+    }
+
+    .right-section {
+      width: 100%;
+      min-height: auto;
+    }
+
+    .character-display .hiragana-character {
+      font-size: 6rem;
+    }
+
+    .input-section .romanization-input {
+      font-size: 1.1rem;
+    }
+
+    .result {
+      padding: 1.5rem;
+      animation: slideIn 0.3s ease-out;
+    }
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
