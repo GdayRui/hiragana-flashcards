@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "export": "next build && next export",
+    "deploy:check": "npm run build && echo 'Build successful! Ready for deployment.'",
+    "deploy:aws": "aws cloudformation deploy --template-file .aws/amplify-stack.yml --stack-name hiragana-flash-cards-stack --capabilities CAPABILITY_IAM --parameter-overrides AppName=hiragana-flash-cards Repository=$GITHUB_REPOSITORY Branch=main GitHubToken=$GITHUB_TOKEN"
+  }
+}
