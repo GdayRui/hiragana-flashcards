@@ -28,7 +28,7 @@ If you encounter errors with the default GITHUB_TOKEN, you'll need to create a P
    - Settings → Secrets and variables → Actions
 
 2. **Add new secret**:
-   - Name: `GITHUB_PAT`
+   - Name: `GH_PAT`
    - Value: Your personal access token
 
 ## Update Workflow (if needed)
@@ -36,7 +36,7 @@ If you encounter errors with the default GITHUB_TOKEN, you'll need to create a P
 If you created a PAT, update the workflow to use it instead of GITHUB_TOKEN:
 
 ```yaml
-GitHubToken=${{ secrets.GITHUB_PAT || secrets.GITHUB_TOKEN }}
+GitHubToken=${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
 ```
 
 This will try the PAT first, then fall back to the default token.

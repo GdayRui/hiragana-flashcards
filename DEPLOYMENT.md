@@ -44,7 +44,7 @@ The deployment needs access to your GitHub repository. GitHub Actions automatica
    - `repo` (full repository access)
    - `admin:repo_hook` (repository hooks)
 3. Copy the token
-4. Add it as a GitHub secret named `GITHUB_PAT` (optional - the workflow tries `GITHUB_TOKEN` first)
+4. Add it as a GitHub secret named `GH_PAT` (optional - the workflow tries `GITHUB_TOKEN` first)
 
 ### 3. Configuration
 
