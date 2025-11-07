@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import ChallengeCard from '@/components/ChallengeCard';
 import Link from 'next/link';
 import './page.scss';
@@ -13,7 +14,9 @@ export default function ChallengeMode() {
             <p className="subtitle">Type the romanization for all 20 characters</p>
           </div>
         </div>
-        <ChallengeCard />
+        <Suspense fallback={<div className="loading">Loading challenge...</div>}>
+          <ChallengeCard />
+        </Suspense>
       </div>
     </main>
   );

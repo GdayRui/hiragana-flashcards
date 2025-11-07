@@ -13,7 +13,7 @@ interface ChallengeItem extends HiraganaCharacter {
 
 export default function ChallengeCard() {
   const searchParams = useSearchParams();
-  const includeDakuten = searchParams.get('dakuten') === 'true';
+  const includeDakuten = searchParams?.get('dakuten') === 'true' || false;
   
   const [challengeList, setChallengeList] = useState<ChallengeItem[]>([]);
   const [currentInput, setCurrentInput] = useState<string>('');

@@ -8,7 +8,7 @@ import './FlashCard.scss';
 
 export default function FlashCard() {
   const searchParams = useSearchParams();
-  const includeDakuten = searchParams.get('dakuten') === 'true';
+  const includeDakuten = searchParams?.get('dakuten') === 'true' || false;
   
   const [currentCharacter, setCurrentCharacter] = useState<HiraganaCharacter | null>(null);
   const [userInput, setUserInput] = useState<string>('');

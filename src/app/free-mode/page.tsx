@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import FlashCard from '@/components/FlashCard';
 import Link from 'next/link';
 import './page.scss';
@@ -13,7 +14,9 @@ export default function FreeMode() {
             <p className="subtitle">Practice at your own pace</p>
           </div>
         </div>
-        <FlashCard />
+        <Suspense fallback={<div className="loading">Loading flash cards...</div>}>
+          <FlashCard />
+        </Suspense>
       </div>
     </main>
   );
