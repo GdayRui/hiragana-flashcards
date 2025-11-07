@@ -43,8 +43,11 @@ jobs:
         echo "Repository: ${{ github.repository }}"
         echo "Branch: ${{ github.ref_name }}"
         echo "GitHub Token length: ${#GITHUB_TOKEN}"
+        echo "GH_PAT available: $([[ -n "$GH_PAT" ]] && echo "YES" || echo "NO")"
+        echo "GH_PAT length: ${#GH_PAT}"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_PAT: ${{ secrets.GH_PAT }}
         
     - name: Deploy CloudFormation stack
       uses: aws-actions/aws-cloudformation-github-deploy@v1
@@ -59,16 +62,19 @@ jobs:
         capabilities: CAPABILITY_NAMED_IAM
         no-fail-on-empty-changeset: "1"
         
-    - name: Get Amplify App URL
+    - name: Get Amplify App Info
       run: |
         APP_ID=$(aws cloudformation describe-stacks \
           --stack-name hiragana-flash-cards-stack \
           --query 'Stacks[0].Outputs[?OutputKey==`AmplifyAppId`].OutputValue' \
           --output text)
-        APP_URL="https://${{ github.ref_name }}.${APP_ID}.amplifyapp.com"
-        echo "🚀 App deployed successfully!"
-        echo "📱 App URL: $APP_URL"
-        echo "APP_URL=$APP_URL" >> $GITHUB_ENV
+        CONSOLE_URL="https://console.aws.amazon.com/amplify/home#/${APP_ID}"
+        echo "🚀 Amplify app created successfully!"
+        echo "📱 App ID: $APP_ID"
+        echo "🔧 Next step: Connect your repository manually in AWS Console"
+        echo "🌐 AWS Console: $CONSOLE_URL"
+        echo "APP_ID=$APP_ID" >> $GITHUB_ENV
+        echo "CONSOLE_URL=$CONSOLE_URL" >> $GITHUB_ENV
         
     - name: Comment PR with deployment info
       if: github.event_name == 'pull_request'
@@ -79,5 +85,5 @@ jobs:
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: `🚀 **Deployment Preview Ready!**\n\n📱 **Preview URL:** ${{ env.APP_URL }}\n\n✅ Your Hiragana Flash Cards app has been deployed successfully.`
+            body: `🚀 **Amplify App Created!**\n\n📱 **App ID:** ${{ env.APP_ID }}\n🔧 **Next:** Connect repository in AWS Console\n🌐 **Console:** ${{ env.CONSOLE_URL }}`
           })
