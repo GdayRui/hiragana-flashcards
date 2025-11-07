@@ -17,6 +17,13 @@ export default function FreeMode() {
         <Suspense fallback={<div className="loading">Loading flash cards...</div>}>
           <FlashCard />
         </Suspense>
+        
+        <div className="chart-link-section">
+          <p className="chart-suggestion">Want to see the full chart?</p>
+          <Link href="/hiragana-chart" className="chart-button">
+            View Complete Hiragana Chart
+          </Link>
+        </div>
       </div>
     </main>
   );

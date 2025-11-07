@@ -1,0 +1,209 @@
+.hiragana-chart {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+
+  .chart-section {
+    margin-bottom: 3rem;
+
+    &.dakuten-section {
+      border-top: 2px solid #e2e8f0;
+      padding-top: 2rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #4a5568;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .chart-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    
+    .column-headers {
+      display: grid;
+      grid-template-columns: 100px repeat(5, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+
+      .row-label {
+        visibility: hidden; // Empty space above row labels
+      }
+
+      .col-header {
+        text-align: center;
+        font-weight: 600;
+        color: #667eea;
+        font-size: 0.9rem;
+        padding: 0.5rem;
+      }
+    }
+
+    .chart-row {
+      display: grid;
+      grid-template-columns: 100px repeat(5, 1fr);
+      gap: 0.5rem;
+      align-items: center;
+
+      .row-label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #718096;
+        text-align: right;
+        padding-right: 0.5rem;
+      }
+
+      .char-cell {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem 0.5rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        min-height: 80px;
+
+        &.filled {
+          background: #f8fafc;
+          border: 2px solid #e2e8f0;
+
+          &:hover {
+            background: #e2e8f0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          }
+
+          .character {
+            font-size: 2rem;
+            font-weight: 300;
+            color: #4a5568;
+            margin-bottom: 0.25rem;
+            font-family: 'Hiragino Kaku Gothic Pro', 'Meiryo', sans-serif;
+            line-height: 1;
+          }
+
+          .romanization {
+            font-size: 0.8rem;
+            color: #667eea;
+            font-weight: 600;
+          }
+        }
+
+        &.empty {
+          background: transparent;
+          border: 2px dashed #e2e8f0;
+        }
+      }
+    }
+  }
+
+  .chart-info {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+
+    p {
+      color: #718096;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+
+      strong {
+        color: #4a5568;
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .hiragana-chart {
+    padding: 1.5rem;
+
+    .chart-grid {
+      .column-headers {
+        grid-template-columns: 80px repeat(5, 1fr);
+        gap: 0.25rem;
+
+        .col-header {
+          font-size: 0.8rem;
+          padding: 0.25rem;
+        }
+      }
+
+      .chart-row {
+        grid-template-columns: 80px repeat(5, 1fr);
+        gap: 0.25rem;
+
+        .row-label {
+          font-size: 0.7rem;
+          padding-right: 0.25rem;
+        }
+
+        .char-cell {
+          padding: 0.75rem 0.25rem;
+          min-height: 70px;
+
+          &.filled {
+            .character {
+              font-size: 1.5rem;
+            }
+
+            .romanization {
+              font-size: 0.7rem;
+            }
+          }
+        }
+      }
+    }
+
+    .chart-section .section-title {
+      font-size: 1.3rem;
+    }
+
+    .chart-info p {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .hiragana-chart {
+    .chart-grid {
+      .column-headers {
+        grid-template-columns: 60px repeat(5, 1fr);
+      }
+
+      .chart-row {
+        grid-template-columns: 60px repeat(5, 1fr);
+
+        .row-label {
+          font-size: 0.6rem;
+        }
+
+        .char-cell {
+          min-height: 60px;
+
+          &.filled {
+            .character {
+              font-size: 1.3rem;
+            }
+
+            .romanization {
+              font-size: 0.65rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
