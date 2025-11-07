@@ -48,6 +48,27 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GH_PAT: ${{ secrets.GH_PAT }}
+    
+    - name: Check and handle existing stack
+      run: |
+        STACK_STATUS=$(aws cloudformation describe-stacks \
+          --stack-name hiragana-flash-cards-stack \
+          --query 'Stacks[0].StackStatus' \
+          --output text 2>/dev/null || echo "STACK_NOT_EXISTS")
+        
+        echo "Current stack status: $STACK_STATUS"
+        
+        if [ "$STACK_STATUS" = "ROLLBACK_COMPLETE" ] || [ "$STACK_STATUS" = "CREATE_FAILED" ] || [ "$STACK_STATUS" = "DELETE_FAILED" ]; then
+          echo "Deleting failed stack..."
+          aws cloudformation delete-stack --stack-name hiragana-flash-cards-stack
+          
+          echo "Waiting for stack deletion to complete..."
+          aws cloudformation wait stack-delete-complete --stack-name hiragana-flash-cards-stack
+          
+          echo "Stack deleted successfully"
+        elif [ "$STACK_STATUS" != "STACK_NOT_EXISTS" ]; then
+          echo "Stack exists with status: $STACK_STATUS"
+        fi
         
     - name: Deploy CloudFormation stack
       uses: aws-actions/aws-cloudformation-github-deploy@v1
