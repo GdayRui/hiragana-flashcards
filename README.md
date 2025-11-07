@@ -79,6 +79,25 @@ src/
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
 
+## Deployment
+
+This application is deployed on AWS Amplify with automatic deployment from GitHub:
+
+### Deployment Architecture
+- **AWS Amplify**: Handles automatic builds and deployments on every commit to `main`
+- **GitHub Actions**: Used only for infrastructure management (manual trigger only)
+- **CloudFormation**: Manages AWS Amplify app configuration
+
+### Deployment Process
+1. **Automatic**: Push to `main` branch → Amplify auto-builds and deploys
+2. **Infrastructure Updates**: Use `workflow_dispatch` in GitHub Actions for Amplify configuration changes
+
+### Manual Infrastructure Deployment
+```bash
+# Trigger infrastructure update via GitHub Actions (manual)
+# Go to Actions tab → "Deploy to AWS Amplify" → "Run workflow"
+```
+
 ## Hiragana Characters Included
 
 The app includes all basic Hiragana characters:

@@ -1,18 +1,16 @@
 name: Deploy to AWS Amplify
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  workflow_dispatch: # Allows manual triggering
+  # Removed push trigger - Amplify handles auto-deployment
+  # Only keep for infrastructure updates and manual deployment
+  workflow_dispatch: # Allows manual triggering for infrastructure updates
 
 env:
   NODE_VERSION: '18'
   AWS_REGION: 'ap-southeast-2' # Change to your preferred region
 
 jobs:
-  deploy:
+  infrastructure:
     runs-on: ubuntu-latest
     
     steps:
@@ -97,14 +95,9 @@ jobs:
         echo "APP_ID=$APP_ID" >> $GITHUB_ENV
         echo "CONSOLE_URL=$CONSOLE_URL" >> $GITHUB_ENV
         
-    - name: Comment PR with deployment info
-      if: github.event_name == 'pull_request'
-      uses: actions/github-script@v7
-      with:
-        script: |
-          github.rest.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: `🚀 **Amplify App Created!**\n\n📱 **App ID:** ${{ env.APP_ID }}\n🔧 **Next:** Connect repository in AWS Console\n🌐 **Console:** ${{ env.CONSOLE_URL }}`
-          })
+    - name: Deployment completed
+      run: |
+        echo "🚀 Infrastructure deployment completed!"
+        echo " App ID: ${{ env.APP_ID }}"
+        echo "🌐 Console: ${{ env.CONSOLE_URL }}"
+        echo "ℹ️  Amplify will auto-deploy from connected repository"
