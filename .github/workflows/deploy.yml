@@ -9,7 +9,7 @@ on:
 
 env:
   NODE_VERSION: '18'
-  AWS_REGION: 'us-east-1' # Change to your preferred region
+  AWS_REGION: 'ap-southeast-2' # Change to your preferred region
 
 jobs:
   deploy:

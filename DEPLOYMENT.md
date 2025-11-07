@@ -52,7 +52,7 @@ The deployment needs access to your GitHub repository. GitHub Actions automatica
 Edit `.github/workflows/deploy.yml` and change the AWS region if needed:
 ```yaml
 env:
-  AWS_REGION: 'us-east-1' # Change to your preferred region
+  AWS_REGION: 'ap-southeast-2' # Change to your preferred region
 ```
 
 #### App Name
