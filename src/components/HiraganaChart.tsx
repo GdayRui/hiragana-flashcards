@@ -49,10 +49,18 @@ export default function HiraganaChart() {
               {row.chars.map((char, colIndex) => (
                 <div key={colIndex} className={`char-cell ${char ? 'filled' : 'empty'}`}>
                   {char && (
-                    <>
-                      <div className="character">{char.character}</div>
-                      <div className="romanization">{char.romanization}</div>
-                    </>
+                    <div className="flip-card">
+                      <div className="flip-card-inner">
+                        <div className="flip-card-front">
+                          <div className="character">{char.character}</div>
+                          <div className="romanization">{char.romanization}</div>
+                        </div>
+                        <div className="flip-card-back">
+                          <div className="character">{char.katakana}</div>
+                          <div className="romanization">{char.romanization}</div>
+                        </div>
+                      </div>
+                    </div>
                   )}
                 </div>
               ))}
@@ -78,8 +86,18 @@ export default function HiraganaChart() {
               <div className="row-label">{row.label}</div>
               {row.chars.map((char, colIndex) => (
                 <div key={colIndex} className="char-cell filled">
-                  <div className="character">{char.character}</div>
-                  <div className="romanization">{char.romanization}</div>
+                  <div className="flip-card">
+                    <div className="flip-card-inner">
+                      <div className="flip-card-front">
+                        <div className="character">{char.character}</div>
+                        <div className="romanization">{char.romanization}</div>
+                      </div>
+                      <div className="flip-card-back">
+                        <div className="character">{char.katakana}</div>
+                        <div className="romanization">{char.romanization}</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>

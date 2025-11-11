@@ -1,6 +1,7 @@
 export interface HiraganaCharacter {
   character: string;
   romanization: string;
+  katakana: string;
 }
 
 export interface FlashCardResult {
