@@ -1,9 +1,21 @@
 'use client';
 
+import { useState } from 'react';
 import { hiraganaData, dakutenData } from '@/data/hiragana';
 import './HiraganaChart.scss';
 
 export default function HiraganaChart() {
+  const [showKatakana, setShowKatakana] = useState(false);
+
+  // Generate random flip animation values
+  const getRandomFlipStyle = () => {
+    const delay = Math.random() * 0.3; // 0-0.3s delay
+    const duration = 0.8 + Math.random() * 0.6; // 0.8-1.4s duration (slower)
+    return {
+      transitionDelay: `${delay}s`,
+      transitionDuration: `${duration}s`,
+    };
+  };
 
   // Organize basic hiragana by rows
   const hiraganaRows = [
@@ -31,6 +43,21 @@ export default function HiraganaChart() {
 
   return (
     <div className="hiragana-chart">
+      <div className="chart-controls">
+        <div className="toggle-container">
+          <span className={`toggle-label ${!showKatakana ? 'active' : ''}`}>Hiragana</span>
+          <label className="toggle-switch">
+            <input 
+              type="checkbox" 
+              checked={showKatakana} 
+              onChange={() => setShowKatakana(!showKatakana)}
+            />
+            <span className="toggle-slider"></span>
+          </label>
+          <span className={`toggle-label ${showKatakana ? 'active' : ''}`}>Katakana</span>
+        </div>
+      </div>
+
       <div className="chart-section">
         <h2 className="section-title">Basic Hiragana</h2>
         <div className="chart-grid">
@@ -50,7 +77,10 @@ export default function HiraganaChart() {
                 <div key={colIndex} className={`char-cell ${char ? 'filled' : 'empty'}`}>
                   {char && (
                     <div className="flip-card">
-                      <div className="flip-card-inner">
+                      <div 
+                        className={`flip-card-inner ${showKatakana ? 'flipped' : ''}`}
+                        style={getRandomFlipStyle()}
+                      >
                         <div className="flip-card-front">
                           <div className="character">{char.character}</div>
                           <div className="romanization">{char.romanization}</div>
@@ -87,7 +117,10 @@ export default function HiraganaChart() {
               {row.chars.map((char, colIndex) => (
                 <div key={colIndex} className="char-cell filled">
                   <div className="flip-card">
-                    <div className="flip-card-inner">
+                    <div 
+                      className={`flip-card-inner ${showKatakana ? 'flipped' : ''}`}
+                      style={getRandomFlipStyle()}
+                    >
                       <div className="flip-card-front">
                         <div className="character">{char.character}</div>
                         <div className="romanization">{char.romanization}</div>
