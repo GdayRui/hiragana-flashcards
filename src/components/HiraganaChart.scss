@@ -166,11 +166,13 @@
           }
 
           &:hover .flip-card-inner:not(.flipped) {
-            transform: rotateY(540deg); // 360 spin + 180 flip = 540
+            transform: rotateY(180deg); // Quick flip on hover without spin
+            transition: transform 0.6s; // Faster transition for hover
           }
 
           &:hover .flip-card-inner.flipped {
-            transform: rotateY(360deg); // Just 360 spin to return to front
+            transform: rotateY(720deg); // 540 + 180 = 720 to flip back
+            transition: transform 0.6s; // Faster transition for hover
           }
 
           .flip-card-front,
