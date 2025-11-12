@@ -121,18 +121,38 @@ export default function FlashCard() {
         </div>
 
         <div className="right-section">
-          {showResult && result && (
+          {showResult && result && currentCharacter && (
             <div className={`result ${result.isCorrect ? 'correct' : 'incorrect'}`}>
               {result.isCorrect ? (
                 <div className="success">
                   <h2>Correct! 🎉</h2>
                   <p>Great job!</p>
+                  <div className="character-reference">
+                    <div className="reference-item">
+                      <span className="reference-label">
+                        {showKatakana ? 'Hiragana' : 'Katakana'}:
+                      </span>
+                      <span className="reference-char">
+                        {showKatakana ? currentCharacter.character : currentCharacter.katakana}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               ) : (
                 <div className="error">
                   <h2>Incorrect</h2>
                   <p>Your answer: <span className="user-answer">{result.userAnswer}</span></p>
                   <p>Correct answer: <span className="correct-answer">{result.correctAnswer}</span></p>
+                  <div className="character-reference">
+                    <div className="reference-item">
+                      <span className="reference-label">
+                        {showKatakana ? 'Hiragana' : 'Katakana'}:
+                      </span>
+                      <span className="reference-char">
+                        {showKatakana ? currentCharacter.character : currentCharacter.katakana}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
