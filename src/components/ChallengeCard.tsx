@@ -19,11 +19,12 @@ export default function ChallengeCard() {
   const [currentInput, setCurrentInput] = useState<string>('');
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
+  const [showKatakana, setShowKatakana] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     generateChallenge();
-  }, [includeDakuten]);
+  }, [includeDakuten, showKatakana]);
 
   const generateChallenge = () => {
     // Get 20 random unique characters
@@ -87,6 +88,21 @@ export default function ChallengeCard() {
 
   return (
     <div className="challenge-card">
+      <div className="card-controls">
+        <div className="toggle-container">
+          <span className={`toggle-label ${!showKatakana ? 'active' : ''}`}>Hiragana</span>
+          <label className="toggle-switch">
+            <input 
+              type="checkbox" 
+              checked={showKatakana} 
+              onChange={() => setShowKatakana(!showKatakana)}
+            />
+            <span className="toggle-slider"></span>
+          </label>
+          <span className={`toggle-label ${showKatakana ? 'active' : ''}`}>Katakana</span>
+        </div>
+      </div>
+
       <div className="character-grid">
         {challengeList.map((item, index) => (
           <div 
@@ -96,7 +112,9 @@ export default function ChallengeCard() {
               item.isCorrect === false ? 'incorrect' : ''
             }`}
           >
-            <div className="character">{item.character}</div>
+            <div className="character">
+              {showKatakana ? item.katakana : item.character}
+            </div>
             <div className="number">{index + 1}</div>
             {item.isCorrect === false && (
               <div className="correct-answer">{item.romanization}</div>

@@ -14,12 +14,13 @@ export default function FlashCard() {
   const [userInput, setUserInput] = useState<string>('');
   const [result, setResult] = useState<FlashCardResult | null>(null);
   const [showResult, setShowResult] = useState<boolean>(false);
+  const [showKatakana, setShowKatakana] = useState<boolean>(false);
   const nextButtonRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     generateNewCharacter();
-  }, [includeDakuten]);
+  }, [includeDakuten, showKatakana]);
 
   const generateNewCharacter = () => {
     setCurrentCharacter(getRandomHiragana(includeDakuten));
@@ -71,10 +72,27 @@ export default function FlashCard() {
 
   return (
     <div className="flash-card">
+      <div className="card-controls">
+        <div className="toggle-container">
+          <span className={`toggle-label ${!showKatakana ? 'active' : ''}`}>Hiragana</span>
+          <label className="toggle-switch">
+            <input 
+              type="checkbox" 
+              checked={showKatakana} 
+              onChange={() => setShowKatakana(!showKatakana)}
+            />
+            <span className="toggle-slider"></span>
+          </label>
+          <span className={`toggle-label ${showKatakana ? 'active' : ''}`}>Katakana</span>
+        </div>
+      </div>
+
       <div className="main-content">
         <div className="left-section">
           <div className="character-display">
-            <h1 className="hiragana-character">{currentCharacter.character}</h1>
+            <h1 className="hiragana-character">
+              {showKatakana ? currentCharacter.katakana : currentCharacter.character}
+            </h1>
           </div>
 
           <div className="input-section">
