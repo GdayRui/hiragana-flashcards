@@ -34,7 +34,7 @@
     min-height: 80px;
 
     &.correct {
-      border-color: #48bb78;
+      border-color: #19743f;
       background: linear-gradient(135deg, #c6f6d5 0%, #9ae6b4 100%);
     }
 
@@ -275,7 +275,7 @@
 
       .correct-answer {
         font-size: 0.6rem;
-        bottom: -20px;
+        bottom: 10px;
       }
     }
   }
